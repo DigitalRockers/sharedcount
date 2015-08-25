@@ -2,9 +2,9 @@
 [![Build Status via Travis CI](https://travis-ci.org/DigitalRockers/sharedcount.svg?branch=master)](https://travis-ci.org/DigitalRockers/sharedcount)
 [![NPM version](http://img.shields.io/npm/v/sharedcount.svg)](https://www.npmjs.org/package/sharedcount)
 
-[Ritetag](sharedcount.com) api module for [nodejs](nodejs.org)
+[SharedCount](sharedcount.com) module for [nodejs](nodejs.org)
 
-Ritetag API documentation: [http://docs.sharedcount.com](http://docs.sharedcount.com/)
+SharedCount API documentation: [http://docs.sharedcount.com](http://docs.sharedcount.com/)
 
 This software is released under the MIT license. See `LICENSE` for more details
 

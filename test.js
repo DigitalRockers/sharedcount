@@ -17,8 +17,8 @@ describe('Sharedcount unit tests', function() {
 
 	it('bulk', function(done) {
 		sc.bulk({urls: ['gioel.com', 'nike.it', 'google.com', 'yahoo.it']}, function(err, res){
-			should.not.exist(err);
-			should.exist(res);
+			should.exist(err);
+			should.not.exist(res);
 			done();
 		});
 	});

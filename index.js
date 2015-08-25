@@ -134,6 +134,7 @@ Sharedcount.prototype.status = function(options, callback){
 };
 
 
+
 /**  Debug  **/
 Sharedcount.prototype.__debug = function (str) {
 	if(this.debug)
@@ -148,7 +149,6 @@ Sharedcount.prototype.__debugInspect = function (str, obj) {
 			console.log('Sharedcount - ' + new Date().toISOString() + ' - ' + this.__inspect(str));
 	}
 };
-
 
 
 

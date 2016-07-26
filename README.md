@@ -44,7 +44,8 @@ Initialize SharedCount object:
 ```javascript
 var SharedCount = require('sharedcount');
 var sc = new SharedCount({
-	apiKey: 'YOUR_API_KEY' || process.env.SharedcountApiKey
+	apiKey: 'YOUR_API_KEY' || process.env.SharedcountApiKey,
+	baseUrl: 'YOUR_DOMAIN' || 'https://free.sharedcount.com', //optional
 	debug: false //optional
 });
 ```

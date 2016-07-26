@@ -90,7 +90,7 @@ Sharedcount.prototype.bulk = function(options, callback) {
 
         if (json.Error) return callback(new Error(json.Error));
 
-        var bulkId = json.bulkId;
+        var bulkId = json.bulk_id;
 
         self.__baseCall('/bulk', _.merge(options, { bulk_id: bulkId }), callback);
     });

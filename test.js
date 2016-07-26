@@ -4,7 +4,7 @@ var should = require('should');
 
 var Sharedcount = require('./index');
 
-var sc = new Sharedcount({ debug: true });
+var sc = new Sharedcount({ debug: false });
 
 describe('Sharedcount unit tests', function() {
     it('url', function(done) {

@@ -35,7 +35,11 @@ Sharedcount.prototype.__baseCall = function(url, options, callback) {
         self.__debug('GET - ' + path + ' - ' + (Date.now() - t) + ' ms');
         if (error) return callback(error);
 
-        var json = JSON.parse(body);
+        try {
+            var json = JSON.parse(body);
+        } catch (err) {
+            return callback(err);
+        }
 
         self.__debugInspect(json);
 
@@ -84,7 +88,11 @@ Sharedcount.prototype.bulk = function(options, callback) {
         self.__debug('POST - ' + path + ' - ' + (Date.now() - t) + ' ms');
         if (error) return callback(error);
 
-        var json = JSON.parse(body);
+        try {
+            var json = JSON.parse(body);
+        } catch (err) {
+            return callback(err);
+        }
 
         self.__debugInspect(json);
 
@@ -92,6 +100,7 @@ Sharedcount.prototype.bulk = function(options, callback) {
 
         var bulkId = json.bulkId;
 
+        options.urls = null;
         self.__baseCall('/bulk', _.merge(options, { bulk_id: bulkId }), callback);
     });
 };

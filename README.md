@@ -47,28 +47,28 @@ Resolve with share counts for a URL.
 sc.url('sharedcount.com')
 ```
 
-### quota(callback)
+### quota()
 Resolve with information about your quota allocation for the day.
 
  ```javascript
 sc.quota();
 ```
 
-### usage(callback)
+### usage()
 Resolve with historical quota usage information.
 
 ```javascript
 sc.usage();
 ```
 
-### domain_whitelist(callback)
+### domain_whitelist()
 Resolve with a list of domains added to your domain whitelist, and whether the domain whitelist is currently being enforced.
 
 ```javascript
 sc.domainWhitelist();
 ```
 
-### status(callback)
+### status()
 Check to see if the SharedCount API is currently up.
 
 ```javascript

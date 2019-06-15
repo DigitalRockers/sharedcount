@@ -1,57 +1,82 @@
-'use strict';
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
+const moment = require('moment');
+const nock = require('nock');
+const Sharedcount = require('./index');
 
-var should = require('should');
+nock.disableNetConnect();
+chai.use(chaiAsPromised);
+chai.should();
+const { expect } = chai;
 
-var Sharedcount = require('./index');
+const baseUrl = 'https://api.sharedcount.com';
+const apikey = 'TEST_API_KEY';
+const expectedResult = { result: 'ok' };
 
-var sc = new Sharedcount({ debug: false });
+describe('Sharedcount unit tests', () => {
+  const sc = new Sharedcount({ apikey });
 
-describe('Sharedcount unit tests', function() {
-    it('url', function(done) {
-        sc.url({ url: 'gioel.com' }, function(err, res) {
-            should.not.exist(err);
-            should.exist(res);
-            done();
-        });
-    });
+  afterEach(() => {
+    nock.cleanAll();
+  });
 
-    it('bulk', function(done) {
-        sc.bulk({ urls: [ 'gioel.com', 'nike.it', 'google.com', 'yahoo.it' ] }, function(err, res) {
-            should.exist(err);
-            should.not.exist(res);
-            done();
-        });
-    });
+  it('url', async () => {
+    const url = 'http://domain.com';
+    nock(baseUrl)
+      .get('/v1.0')
+      .query({ apikey, url })
+      .reply(200, expectedResult);
+    const result = await sc.url(url);
+    expect(result).to.be.deep.equal(expectedResult);
+  });
 
-    it('quota', function(done) {
-        sc.quota(function(err, res) {
-            should.not.exist(err);
-            should.exist(res);
-            done();
-        });
-    });
+  it('url (without http prefix)', async () => {
+    const domain = 'domain.com';
+    nock(baseUrl)
+      .get('/v1.0')
+      .query({ apikey, url: `http://${domain}` })
+      .reply(200, expectedResult);
+    const result = await sc.url(domain);
+    expect(result).to.be.deep.equal(expectedResult);
+  });
 
-    it('usage', function(done) {
-        sc.usage(function(err, res) {
-            should.not.exist(err);
-            should.exist(res);
-            done();
-        });
-    });
+  it('domain whitelist', async () => {
+    nock(baseUrl)
+      .get('/v1.0/domain_whitelist')
+      .query({ apikey })
+      .reply(200, expectedResult);
 
-    it('domain_whitelist', function(done) {
-        sc.domainWhitelist(function(err, res) {
-            should.not.exist(err);
-            should.exist(res);
-            done();
-        });
-    });
+    const result = await sc.domainWhitelist();
+    expect(result).to.be.deep.equal(expectedResult);
+  });
 
-    it('status', function(done) {
-        sc.status(function(err, res) {
-            should.not.exist(err);
-            should.exist(res);
-            done();
-        });
-    });
+  it('usage', async () => {
+    nock(baseUrl)
+      .get('/v1.0/usage')
+      .query({ apikey })
+      .reply(200, expectedResult);
+
+    const result = await sc.usage();
+    expect(result).to.be.deep.equal(expectedResult);
+  });
+
+  it('quota', async () => {
+    nock(baseUrl)
+      .get('/v1.0/quota')
+      .query({ apikey })
+      .reply(200, expectedResult);
+
+    const result = await sc.quota();
+    expect(result).to.be.deep.equal(expectedResult);
+  });
+
+  it('status', async () => {
+    nock(baseUrl)
+      .get('/v1.0/status')
+      .query({ apikey })
+      .reply(200, expectedResult);
+
+    const result = await sc.status();
+    expect(result).to.be.deep.equal(expectedResult);
+  });
 });

@@ -13,29 +13,21 @@ This software is released under the MIT license. See `LICENSE` for more details
 
 From the command line
 
+	$ yarn install sharedcount
+
+or
+
 	$ npm install sharedcount
 
-package.json
-
-	dependencies: {
-      ...
-      "sharedcount": "*$version*",
-      ...
-    }
-    ...
 
 ## Example use
 
 ```javascript
 var SharedCount = require('sharedcount');
 
-var sc = new SharedCount({ apiKey: 'YOUR_API_KEY' });
+var sc = new SharedCount({ apikey: 'YOUR_API_KEY' });
 
-sc.url({url: 'www.yahoo.com'}, function(error, results){
-	if(error) return console.error(error);
-	
-	...
-});
+const result = await sc.url('www.yahoo.com')}
 ```
 
 ## Documentation
@@ -45,85 +37,42 @@ Initialize SharedCount object:
 var SharedCount = require('sharedcount');
 var sc = new SharedCount({
 	apiKey: 'YOUR_API_KEY' || process.env.SharedcountApiKey,
-	baseUrl: 'YOUR_DOMAIN' || 'https://free.sharedcount.com', //optional
-	debug: false //optional
 });
 ```
 
-### url(url, callback)
-Return share counts for a URL.
+### url(url)
+Resolve with share counts for a URL.
 
 ```javascript
-sc.url('sharedcount.com', function(error, results){
-	if(error) return console.error(error);
-
-	...
-});
-
-//custom_ttl available only on Dedicated plans
-sc.url({url: 'sharedcount.com', custom_ttl: 600}, function(error, results){
-	if(error) return console.error(error);
-
-	...
-});
+sc.url('sharedcount.com')
 ```
 
-### bulk(options, callback)
-Get a large number of recently-posted URLs all at once to calculate bulk social counts.
-
-This method call `POST /bulk` and `GET /bulk` endpoint
-```javascript
-sc.bulk({
-		urls: ['sharedcount.com', 'google.com', 'yahoo.com'],
-		force: 1 //optional, Set this parameter to 1 force results to return even if not all URLs have completed processing.
-	}, function(error, results){
-	if(error) return console.error(error);
-
-	...
-});
-```
 ### quota(callback)
-Return information about your quota allocation for the day.
+Resolve with information about your quota allocation for the day.
 
  ```javascript
-sc.quota(function(error, results){
-	if(error) return console.error(error);
-
-	...
-});
+sc.quota();
 ```
 
 ### usage(callback)
-Return historical quota usage information.
+Resolve with historical quota usage information.
 
 ```javascript
-sc.usage(function(error, results){
-	if(error) return console.error(error);
-
-	...
-});
+sc.usage();
 ```
 
 ### domain_whitelist(callback)
-Return a list of domains added to your domain whitelist, and whether the domain whitelist is currently being enforced.
+Resolve with a list of domains added to your domain whitelist, and whether the domain whitelist is currently being enforced.
 
 ```javascript
-sc.domainWhitelist(function(error, results){
-	if(error) return console.error(error);
-
-	...
-});
+sc.domainWhitelist();
 ```
 
 ### status(callback)
 Check to see if the SharedCount API is currently up.
 
 ```javascript
-sc.status(function(error, results){
-	if(error) return console.error(error);
-
-	...
-});
+sc.status();
 ```
 
 LICENSE
